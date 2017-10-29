@@ -18,7 +18,7 @@ class BaidupicPipeline(object):
 
 class BaiduPicImagePipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
-        yield scrapy.Request(item['url'], headers={'Referrer': item['referrer']})
+        yield scrapy.Request(item['url'], headers={'Referer': item['referer']})
 
     def item_completed(self, results, item, info):
         success, result = results[0]

@@ -11,4 +11,4 @@ import scrapy
 class BaidupicItem(scrapy.Item):
     url = scrapy.Field()
     image_hash = scrapy.Field()
-    referrer = scrapy.Field()
+    referer = scrapy.Field()
