@@ -16,10 +16,10 @@ NEWSPIDER_MODULE = 'baidupic.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'baidupic (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.75 Safari/537.36'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -46,9 +46,10 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'baidupic.middlewares.BaidupicSpiderMiddleware': 543,
-#}
+SPIDER_MIDDLEWARES = {
+    # 'baidupic.middlewares.BaidupicSpiderMiddleware': 543,
+    'scrapy.spidermiddlewares.referer.SameOriginPolicy': 10,
+}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
@@ -64,20 +65,24 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'baidupic.pipelines.BaidupicPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'baidupic.pipelines.BaiduPicImagePipeline': 300,
+    # 'scrapy.pipelines.images.ImagesPipeline': 1
+}
+
+IMAGES_STORE = './pic/'
+IMAGES_EXPIRES = 30
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 #AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
 #AUTOTHROTTLE_MAX_DELAY = 60
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-#AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+AUTOTHROTTLE_TARGET_CONCURRENCY = 20
 # Enable showing throttling stats for every response received:
 #AUTOTHROTTLE_DEBUG = False
 
