@@ -72,10 +72,11 @@ ITEM_PIPELINES = {
 
 IMAGES_STORE = './pic/'
 IMAGES_EXPIRES = 30
-IMAGES_THUMBS = {
-    'small': (50, 50),
-    'big': (300, 300),
-}
+
+# IMAGES_THUMBS = {
+#     'small': (50, 50),
+#     'big': (300, 300),
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

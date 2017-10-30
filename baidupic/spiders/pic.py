@@ -21,6 +21,8 @@ class PicSpider(scrapy.Spider):
 
     img_xpath = '//*[@id="imgid"]/ul/li[8]/a/img'  # FIXME
     next_page_xpath = '//*[@id="page"]/a/@href'
+    ul_xpath = '//ul'
+    img_manual_xpath = '//img/@src'
 
     entries_per_page = 20
 
@@ -32,6 +34,16 @@ class PicSpider(scrapy.Spider):
     def parse(self, response):
         """by pages, starter"""
         sel = etree.HTML(response.body)
+
+        ul = sel.xpath(self.ul_xpath)[0]
+        images = ul.xpath(self.img_manual_xpath)
+        for img in images:
+            pic_url = 'https:' + img
+            item = BaidupicItem()
+            item['url'] = pic_url
+            item['referer'] = response.url
+            yield item
+
         next_page = sel.xpath(self.next_page_xpath)[-1]
         next_page = self.base_url + next_page
         yield Request(next_page, callback=self.parse)
